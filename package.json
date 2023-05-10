@@ -1,0 +1,22 @@
+{
+  "name": "rsa",
+  "version": "1.0.0",
+  "description": "RSA Chat app",
+  "main": "RSA_Server.js",
+  "scripts": {
+    "start": "node RSA_Server.js",
+    "dev": "nodemon RSA_Server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "crypto": "^1.0.1",
+    "crypto-js": "^4.1.1",
+    "crystals-kyber": "^5.1.0",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "http": "^0.0.1-security",
+    "socket.io": "^4.6.1"
+  }
+}

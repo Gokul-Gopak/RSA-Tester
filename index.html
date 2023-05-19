@@ -8,17 +8,21 @@
                 margin: 30px;
                 padding-bottom: 3rem;
                 font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-                background-color: darkgray;
+                background-color: #fcfaf9;
+            }
+
+            small {
+                font-size: x-small;
             }
 
             #banner {
-                background-color: greenyellow;
+                background-color: black;
                 padding: 10px;
                 text-align: center;
                 font-weight: bold;
                 font-size: 20px;
                 margin-bottom: 20px;
-                /* color: white; */
+                color: white;
             }
 
             #form {
@@ -75,7 +79,7 @@
             }
 
             .message.received {
-                background-color: black;
+                background-color: #333333;
                 margin-left: 0.5rem;
                 margin-right: auto;
                 text-align: left;
@@ -83,8 +87,8 @@
             }
 
             .message.sent {
-                background-color: white;
-                margin-right: 0.5rem;
+                background-color: #72e7d9;
+                margin-right: 0.1rem;
                 margin-left: auto;
                 text-align: right;
             }
@@ -120,24 +124,12 @@
             var usernameElement = document.getElementById('username');
             const username = prompt("What is your username?");
             socket.emit("new user", username);
-            usernameElement.innerHTML = username;
-            // form.addEventListener('submit', function (e) {
-            //     e.preventDefault();
-            //     if (input.value) {
-            //         // Send the message to the server
-            //         socket.emit('chat message', input.value);
+            usernameElement.innerHTML = username.charAt(0).toUpperCase() + username.slice(1).toLowerCase();
 
-            //         input.value = '';
-            //     }
-            // });
-
-            // JavaScript code
             form.addEventListener('submit', function (e) {
                 e.preventDefault();
-                if (input.checkValidity()) { // check if input is valid
-                    // Send the message to the server
+                if (input.checkValidity()) {
                     socket.emit('chat message', input.value);
-
                     input.value = '';
                 }
             });
@@ -145,15 +137,15 @@
             socket.on('chat message', function (msg) {
                 var item = document.createElement('li');
                 var messageClass = msg.username === username ? 'sent' : 'received';
-                // item.innerHTML = '<div class="message ' + messageClass + '"><p>' + msg.username + ': ' + msg.decrypted + '</p></div>';
-                item.innerHTML = '<div class="message ' + messageClass + '"><p><span class="username">' + msg.username + '</span> : ' + msg.decrypted + '</p></div>';
-
+                item.innerHTML = '<div class="message ' + messageClass + '"><p><span class="username" style="text-transform: capitalize;">' + msg.username + '</span>: ' + msg.decrypted + '</p><span class="timestamp">' + '<small>' + getCurrentTimestamp() + '</small>' + '</span></div>';
                 messages.appendChild(item);
                 window.scrollTo(0, document.body.scrollHeight);
             });
 
-
-
+            function getCurrentTimestamp() {
+                var currentTimestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                return currentTimestamp;
+            }
         </script>
     </body>
 
